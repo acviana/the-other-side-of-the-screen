@@ -4,21 +4,19 @@ Tags: fits, python, code
 Slug: writing-a-fits-file-bigger-than-your-memory
 Author: Alex C. Viana, Erik Bray
 Category: Work
-Status: draft
 
-
-<center>_I've listed [Erik Bray](https://plus.google.com/+ErikBray/about)([GitHub](https://github.com/embray)) as a co-author on this post. Erik is one of the PyFITS developers and this post was born out of an email chain where he most of what follows to me, several times._</center>
+<center>_I've listed [Erik Bray](https://plus.google.com/+ErikBray/about)([GitHub](https://github.com/embray)) as a co-author on this post. Erik is one of the PyFITS developers and this post was born out of an email chain where he explained most of what follows to me, several times._</center>
 
 
 > "I’ve always thought that one of the the great things about physics is that you can add more digits to any number and see what happens and nobody can stop you."  
 > - Randall Munroe, [What If?](https://what-if.xkcd.com/20/)
 
 
-I've been working a lot lately on my HST WFC3 [PSF project](http://acviana.github.io/tag/psf.html) and recently had to solve a challenging scaling problem that forced me to deal with the hardware limits of my machine. I needed to create a FITS file containing a 4,000,000 x 11 x 11 data cube [^1]. This is more than even my 16GB machine can handle and it resulted in [paging](http://en.wikipedia.org/wiki/Paging) to the virtual memory which killed performance. As I was trying to find a solution to this problem a play on Randall Munroe's quote from the beginning of this post kept popping up in my head:
+I've been working a lot lately on my HST WFC3 [PSF project](http://acviana.github.io/tag/psf.html) and recently had to solve a challenging scaling problem that forced me to deal with the hardware limits of my machine. I needed to create a FITS file containing a 4,000,000 x 11 x 11 data cube [^1]. This ends up being more than my 16 GB machine can handle and it resulted in [paging](http://en.wikipedia.org/wiki/Paging) to the virtual memory which killed performance. As I was trying to find a solution to this problem a play on Randall Munroe's quote from the beginning of this post kept popping up in my head:
 
 _"The annoying thing about writing software is that people can just add zeros and break everything and you can't stop them."_ 
 
-So as exciting as it was that my dataset had grown to the point that it couldn't all fit in memory at once, the question now was _"how do you create a FITS file from a NumPy array that's too big to fit in memory?"_
+So even thought it was exciting that my dataset had grown to the point that it couldn't all fit in memory at once, I was now faced with the problem of how to create a FITS file from a NumPy array that's too big to fit in memory?
 
 ### Reading the Docs
 
